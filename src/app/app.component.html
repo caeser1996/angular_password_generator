@@ -5,13 +5,13 @@
 
       <div class="field">
         <label>Length</label>
-        <input type="number" class="input" (input)="onChangeLength($event.target.value)"/>
+        <input class="input" (input)="onChangeLength($event.target.value)" />
       </div>
 
       <div class="field">
         <div class="control">
           <label class="checkbox">
-            <input (change)="onChangeUseLetters()" type="checkbox"/>
+            <input (change)="onChangeUseLetters()" type="checkbox" />
             Use Letters
           </label>
         </div>
@@ -20,7 +20,7 @@
       <div class="field">
         <div class="control">
           <label class="checkbox">
-            <input (change)="onUserNumberChange()" type="checkbox"/>
+            <input (change)="onChangeUseNumbers()" type="checkbox" />
             Use Numbers
           </label>
         </div>
@@ -29,21 +29,25 @@
       <div class="field">
         <div class="control">
           <label class="checkbox">
-            <input (change)="onUseSymbolChange()" type="checkbox"/>
+            <input (change)="onChangeUseSymbols()" type="checkbox" />
             Use Symbols
           </label>
         </div>
       </div>
 
-      <button [disabled]="
+      <button
+        [disabled]="
           !(length && (includeLetters || includeSymbols || includeNumbers))
-        " (click)="onButtonClick()" class="button is-link is-fullwidth">
+        "
+        (click)="onButtonClick()"
+        class="button is-link is-fullwidth"
+      >
         Generate!
       </button>
 
       <div class="box" *ngIf="password">
         <label>Your Password</label>
-        <input class="input"  [value]="password"/>
+        <input class="input" [value]="password" />
       </div>
     </div>
   </div>

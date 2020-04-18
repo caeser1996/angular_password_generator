@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,65 +6,53 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Password Generator';
-  //properties
-  password = '';
-  includeLetters = false;
-  includeSymbols = false;
-  includeNumbers = false;
   length = 0;
-  buttonData=true
+  includeLetters = false;
+  includeNumbers = false;
+  includeSymbols = false;
+  password = '';
 
-  getPassword() {
-    return this.password;
+  onChangeLength(value: string) {
+    const parsedValue = parseInt(value);
+
+    if (!isNaN(parsedValue)) {
+      this.length = parsedValue;
+    }
   }
 
   onChangeUseLetters() {
-    this.includeLetters = !this.includeLetters
+    this.includeLetters = !this.includeLetters;
   }
 
-  onUserNumberChange() {
-    this.includeNumbers = !this.includeNumbers
+  onChangeUseNumbers() {
+    this.includeNumbers = !this.includeNumbers;
   }
 
-  onUseSymbolChange() {
-    this.includeSymbols = !this.includeSymbols
-  }
-
-  onChangeLength(event: string) {
-    const parsedValue = parseInt(event)
-    if (!isNaN(parsedValue)) {
-      this.buttonData=false
-      this.length = parsedValue
-    }
+  onChangeUseSymbols() {
+    this.includeSymbols = !this.includeSymbols;
   }
 
   onButtonClick() {
-    console.log(`Following options are selected
-    Letters : ${this.includeLetters}
-    Numbers : ${this.includeNumbers}
-    Symbols : ${this.includeSymbols}
-    `);
+    const numbers = '1234567890';
+    const letters = 'abcdefghijklmnopqrstuvwyz';
+    const symbols = '!@#$%^&*()';
 
-    const numbers ='1234567890'
-    const letters = 'abcdefghijklmnopqrstuvwxyz'
-    const symbols ='!@#$%^&*()'
+    let validChars = '';
+    if (this.includeLetters) {
+      validChars += letters;
+    }
+    if (this.includeNumbers) {
+      validChars += numbers;
+    }
+    if (this.includeSymbols) {
+      validChars += symbols;
+    }
 
-    let validChars='';
-    if(this.includeLetters){
-      validChars+=letters
+    let generatedPassword = '';
+    for (let i = 0; i < this.length; i++) {
+      const index = Math.floor(Math.random() * validChars.length);
+      generatedPassword += validChars[index];
     }
-    else if (this.includeNumbers){
-      validChars+=numbers
-    }
-    else if(this.includeSymbols){
-      validChars+=symbols
-    }
-    let generatedPassword = ''
-    for(let i =0; i<=validChars.length;i++){
-      const index=Math.floor(Math.random()*validChars.length)
-      generatedPassword+=validChars[index]
-    }
-    this.password = generatedPassword
+    this.password = generatedPassword;
   }
 }
